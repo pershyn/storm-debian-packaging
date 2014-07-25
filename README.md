@@ -3,6 +3,11 @@
 Debian packaging for [Apache Storm](http://storm.incubator.apache.org) distributed
 realtime computation system.
 
+The goal of this project is to provide a flexible tool to build a debian package,
+that follows debian standards, uses default configs, supplied with storm release.
+And also can be used as easy as storm zip unpacked elsewhere, and, at the same time,
+provides a flexibility to configure it for long-term high-load production use.
+
 I have [previously](https://github.com/pershyn/storm-deb-packaging) used
 [FPM](https://github.com/jordansissel/fpm/) to build storm 0.8 till 0.9.1.
 But it was hard to maintain and also messy, while there were only potential benefits
@@ -11,6 +16,13 @@ to parametrize build for ubuntu (upstart) and theoretically rpm.
 Also, before 0.9.1 building storm involved building zmq and jzmq packages.
 That was a pain, details [here](https://github.com/pershyn/storm-deb-packaging/blob/37bca226b8183e86d63b40c33ffd776b7b105c23/README.md#zeromq-and-jzmq).
 Now these dependencies are gone and [storm flies with netty](http://yahooeng.tumblr.com/post/64758709722/making-storm-fly-with-netty) by default.
+
+Before you proceed to build a package, you may be interested to keep in mind next projects.
+* [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
+* [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
+* [storm-deploy](https://github.com/nathanmarz/storm-deploy)
+* Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
+* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
 
 ## Building a package:
 
@@ -114,6 +126,9 @@ lrwxrwxrwx 1 root root    14 Jul 24 15:37 storm-local -> /var/lib/storm
 `var/log/storm` and `/var/lib/storm` are owned by storm user, so processes that
 are also running under storm user can write state and logs.
 
+Also `/usr/bin/storm -> /usr/lib/storm/bin/storm`, so, after installation storm
+is accessible from command line.
+
 This gives a precise control on configurations, log files and binaries following FHS.
 Also such a schema satisfies both developers and admins paradigms.
 
@@ -122,7 +137,7 @@ Also such a schema satisfies both developers and admins paradigms.
 By default storm shipped pre-configured to log into ${storm.home}/logs/
 This configuration is done in `logback.xml`.
 
-because `${storm.home}/logs/` are symlinked to `/var/log/storm` they end up where expected by admins.
+because `${STORM_HOME}/logs/` are symlinked to `/var/log/storm` they end up where expected by admins.
 
 #Dependencies and Requirements:
 
@@ -288,13 +303,6 @@ lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/bin/storm -> ../lib/storm/
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as Apache Storm project.
 
 ## Links:
-
-You may want also check next links:
-* [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
-* [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
-* [storm-deploy](https://github.com/nathanmarz/storm-deploy)
-* Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
-* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
 
 Also, interesting materials related to this repository.
 * according to [this discussion](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=621833) debian package should not remove any users on removal. Recommended behaviour is disabling a user.
