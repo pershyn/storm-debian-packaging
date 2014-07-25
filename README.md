@@ -1,8 +1,12 @@
 # Storm Debian Packaging
 
-Debian packaging for [Apache Storm](http://storm.incubator.apache.org) distributed realtime computation system.
+Debian packaging for [Apache Storm](http://storm.incubator.apache.org) distributed
+realtime computation system.
 
-I have [previously](https://github.com/pershyn/storm-deb-packaging) used [FPM](https://github.com/jordansissel/fpm/) to build storm 0.8 till 0.9.1. But it was hard to maintain and also messy, while give some options to parametrize build for ubuntu (upstart) and theoretically rpm.
+I have [previously](https://github.com/pershyn/storm-deb-packaging) used
+[FPM](https://github.com/jordansissel/fpm/) to build storm 0.8 till 0.9.1.
+But it was hard to maintain and also messy, while there were only potential benefits
+to parametrize build for ubuntu (upstart) and theoretically rpm.
 
 Also, before 0.9.1 building storm involved building zmq and jzmq packages.
 That was a pain, details [here](https://github.com/pershyn/storm-deb-packaging/blob/37bca226b8183e86d63b40c33ffd776b7b105c23/README.md#zeromq-and-jzmq).
@@ -24,7 +28,7 @@ you have to have next things installed:
 During the installation storm package also creates or enables existing storm user.
 
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
-2. Start required services with following commands
+2. Start required service with corresponding command
 ```
 #: /etc/init.d/storm-nimbus start
 #: /etc/init.d/storm-ui start
@@ -33,10 +37,11 @@ During the installation storm package also creates or enables existing storm use
 ```
 3. Enable those that you need to start automatically on system restart. (TODO: insert one-liner)
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
-It is recommended to use Software Configuration Management tools to manage storm clusters.
-Like salt, chef, puppet, ansible.
-Also you can check wirbelsturm for virtual deploys and storm-deploy for quick provisioning
-in cloud.
+It is a good idea to use Software Configuration Management tools to manage configuration of storm clusters.
+Like [saltstack](http://www.saltstack.com/),
+[chef](http://www.getchef.com/chef/),
+[puppet](https://puppetlabs.com/),
+[ansible](http://www.ansible.com/home).
 
 ## Compatibity:
 
@@ -60,7 +65,7 @@ and another forks moved to use `/opt/storm`...
 
 So, there was a bit of a chaos.
 
-Storm distribution deviate from debian packaging conventions conventions,
+Storm distribution deviate from debian packaging conventions,
 (like separating libs, and executables),
 so all the stuff that has to do something with storm goes to one `$STORM_HOME` folder.
 
@@ -284,6 +289,13 @@ lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/bin/storm -> ../lib/storm/
 
 ## Links:
 
+You may want also check next links:
+* [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
+* [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
+* [storm-deploy](https://github.com/nathanmarz/storm-deploy)
+* Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
+* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
+
+Also, interesting materials related to this repository.
 * according to [this discussion](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=621833) debian package should not remove any users on removal. Recommended behaviour is disabling a user.
-* Interesting tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
 * [This](http://serverfault.com/questions/96416/should-i-install-linux-applications-in-var-or-opt) is a good answer "where should software be installed".
