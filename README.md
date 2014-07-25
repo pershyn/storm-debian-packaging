@@ -126,7 +126,7 @@ lrwxrwxrwx 1 root root    14 Jul 24 15:37 storm-local -> /var/lib/storm
 `var/log/storm` and `/var/lib/storm` are owned by storm user, so processes that
 are also running under storm user can write state and logs.
 
-Also `/usr/bin/storm -> /usr/lib/storm/bin/storm`, so, after installation storm
+Also `/usr/bin/storm` points to `/usr/lib/storm/bin/storm`, so, after installation storm
 is accessible from command line.
 
 This gives a precise control on configurations, log files and binaries following FHS.
