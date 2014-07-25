@@ -1,0 +1,17 @@
+apache-storm-0.9.2-incubating/bin/storm usr/lib/storm/bin/
+apache-storm-0.9.2-incubating/conf/* etc/storm/
+# skip the examples
+# skip external
+apache-storm-0.9.2-incubating/lib usr/lib/storm/
+apache-storm-0.9.2-incubating/logback/* etc/storm/
+apache-storm-0.9.2-incubating/public usr/lib/storm/
+
+etc/init.d/* etc/init.d
+
+apache-storm-0.9.2-incubating/CHANGELOG.md usr/lib/storm/
+apache-storm-0.9.2-incubating/DISCLAIMER usr/lib/storm/
+apache-storm-0.9.2-incubating/LICENSE usr/lib/storm/
+apache-storm-0.9.2-incubating/NOTICE usr/lib/storm/
+apache-storm-0.9.2-incubating/README.markdown usr/lib/storm/
+apache-storm-0.9.2-incubating/RELEASE usr/lib/storm/
+apache-storm-0.9.2-incubating/SECURITY.md usr/lib/storm/

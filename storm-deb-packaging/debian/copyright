@@ -1,0 +1,6 @@
+Format: http://dep.debian.net/deps/dep5
+Upstream-Name: apache-storm 
+Source: Apache foundation (https://github.com/apache/incubator-storm)
+Files: debian/*
+Copyright: See project license 
+License: Apache License 2.0

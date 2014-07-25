@@ -1,0 +1,15 @@
+Source: apache-storm
+Section: net
+Priority: extra
+Maintainer: Michael Pershyn <michael.pershyn@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), java-runtime-headless, openjdk-6-jre-headless (>= 6b19) | sun-java6-jre (>= 6b19)
+Standards-Version: 3.9.1
+
+Package: apache-storm
+Architecture: all
+Depends: java-runtime-headless
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
