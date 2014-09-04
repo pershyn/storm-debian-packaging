@@ -1,3 +1,9 @@
+apache-storm (0.9.3-incubating-SNAPSHOT) stable; urgency=low
+
+  * New packaging for storm. (see /usr/lib/storm/CHANGELOG.md)
+
+ -- Michael Pershyn <michael.pershyn@gmail.com>  Wed, 23 Jul 2014 10:46:16 +0100
+
 apache-storm (0.9.2-incubating) stable; urgency=low
 
   * New packaging for storm. (see /usr/lib/storm/CHANGELOG.md)

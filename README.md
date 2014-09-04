@@ -28,7 +28,7 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 
 1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your prefered values, so you get contacted if other people will use the package compiled by you.
 2. Prepare the environment. You should have debian-based distribution with all tools listed in `bootstrap.sh` installed. Also, Vagrant is recommended, please find details below.
-3. In environment go to nested folder `storm-deb-packaging` in repository run the `dpkg-buildpackage -rfakeroot`. The package would be then created in `../`
+3. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`
 
 ## Using a package:
 
@@ -166,6 +166,9 @@ Same script is used to provision Vagrant environment.
 Things to do:
 --------------------
 
+- [ ] Debian lsb in ubuntu
+- [ ] Debian insserv in ubuntu
+- [ ] Why people write upstart scripts.
 - [ ] Ensure python 2.6.6 and java6 are added to package dependencies so they get installed automatically.
 - [ ] add a note about separate project to 4 packages (common, nimbus, ui, supervisor)
 - [ ] clean-up storm-local on package removal, so it doesn't collide with further installations

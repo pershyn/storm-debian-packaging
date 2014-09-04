@@ -1,15 +1,21 @@
-apache-storm-0.9.2-incubating/bin/storm usr/lib/storm/bin/
-apache-storm-0.9.2-incubating/conf/* etc/storm/
+# TODO: Not sure how to call original folder that contains sources.
+# So far `orig` is used.
+
+orig/bin/storm usr/lib/storm/bin
+orig/conf/* etc/storm/
 # skip the examples
 # skip external
-apache-storm-0.9.2-incubating/lib usr/lib/storm/
-apache-storm-0.9.2-incubating/logback/* etc/storm/
-apache-storm-0.9.2-incubating/public usr/lib/storm/
+orig/lib usr/lib/storm/
+orig/logback/* etc/storm/
+orig/public usr/lib/storm/
 
-apache-storm-0.9.2-incubating/CHANGELOG.md usr/lib/storm/
-apache-storm-0.9.2-incubating/DISCLAIMER usr/lib/storm/
-apache-storm-0.9.2-incubating/LICENSE usr/lib/storm/
-apache-storm-0.9.2-incubating/NOTICE usr/lib/storm/
-apache-storm-0.9.2-incubating/README.markdown usr/lib/storm/
-apache-storm-0.9.2-incubating/RELEASE usr/lib/storm/
-apache-storm-0.9.2-incubating/SECURITY.md usr/lib/storm/
+# init scripts are managed by rules
+
+# add docs
+orig/CHANGELOG.md usr/lib/storm/
+orig/DISCLAIMER usr/lib/storm/
+orig/LICENSE usr/lib/storm/
+orig/NOTICE usr/lib/storm/
+orig/README.markdown usr/lib/storm/
+orig/RELEASE usr/lib/storm/
+orig/SECURITY.md usr/lib/storm/

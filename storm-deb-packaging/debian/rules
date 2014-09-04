@@ -16,14 +16,32 @@ export DH_VERBOSE=1
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
+# Prepare sources
+#export ORIG_PATH=apache-storm-0.9.2-incubating
+#export ORIG_PATH=apache-storm-0.9.3-incubating-SNAPSHOT
 
 override_dh_auto_build:
-	wget http://www.eu.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.zip
-	unzip apache-storm-0.9.2-incubating.zip
+
+	# Ensure apache zip is downloaded to project root `./downloads`
+	# wget -c -P ../downloads http://www.eu.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.zip
+
+	# If snapshot version should be used - comment the line above, put the zip to `../downloads` and change ORIG_PATH
+
+	# Unpack required zip contents to orig folder.
+	rm -rf ${ORIG_PATH}
+	rm -rf orig
+
+	unzip ../downloads/${ORIG_PATH}.zip
+	mkdir orig
+	mv ${ORIG_PATH}/* orig
+
+	rm -rf ${ORIG_PATH}
+
 	touch build
 
 override_dh_auto_clean:
-	@- $(RM) -r apache-storm-0.9.2-incubating*
+  # clean unpacked sources
+	@- $(RM) -r orig
 	@- $(RM) build
 	@- $(RM) -r target
 
@@ -32,7 +50,7 @@ override_dh_installinit:
 	dh_installinit --no-start --name storm-supervisor
 	dh_installinit --no-start --name storm-drpc
 	dh_installinit --no-start --name storm-ui
+	dh_installinit --no-start --name storm-logviewer
 
 %:
 	dh $@
-
