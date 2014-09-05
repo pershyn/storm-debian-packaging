@@ -28,14 +28,26 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 
 1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your prefered values, so you get contacted if other people will use the package compiled by you.
 2. Prepare the environment. You should have debian-based distribution with all tools listed in `bootstrap.sh` installed. Also, Vagrant is recommended, please find details below.
-3. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`
+3. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions below.
+
+### Creating a package of SNAPSHOT version of storm.
+
+Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob/master/DEVELOPER.md#packaging) to create a storm distribution.
+
+    # First, build the code.
+    $ mvn clean install  # you may skip tests with `-DskipTests=true` to save time
+
+    # Create the binary distribution.
+    $ cd storm-dist/binary && mvn package
+
+Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-packaging/downloads` and edit the `rules` and `changelog` files to use this zip.
 
 ## Using a package:
 
 According to [official storm guide](https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster)
 you have to have next things installed:
-- Java 6
-- Python 2.6.6
+- Java 6. But, according to [recent info](https://www.mail-archive.com/user@storm.incubator.apache.org/msg03230.html), storm-0.9.x works perfectly with java 1.6, 1.7 and 1.8. Also both openjdk and oracle jdk are supported.
+- Python 2.6.6 - It may work also with other version, however this one claimed to be tested.
 
 During the installation storm package also creates or enables existing storm user.
 
@@ -150,8 +162,12 @@ It is recommended to use vagrant to automatically provision the machine to build
 the script. (relies on `wheezy64`)
 
 ```bash
-vagrant up
-vagrant ssh
+
+# prepare and enter vm (debian)
+vagrant up debian
+vagrant ssh debian
+# to build in ubuntu use `vagrant up ubuntu && vagrant ssh ubuntu`
+
 cd /vagrant
 # and then use commands from _Usage_ section.
 ```
@@ -166,143 +182,27 @@ Same script is used to provision Vagrant environment.
 Things to do:
 --------------------
 
-- [ ] Debian lsb in ubuntu
-- [ ] Debian insserv in ubuntu
-- [ ] Why people write upstart scripts.
-- [ ] Ensure python 2.6.6 and java6 are added to package dependencies so they get installed automatically.
-- [ ] add a note about separate project to 4 packages (common, nimbus, ui, supervisor)
+- [ ] Add instruction about debian insserv in ubuntu
+- [ ] Ensure python 2.6.6 and java6/7 are added to package dependencies so they get installed automatically.
+- [ ] add a note about separate project to 5 packages (common, nimbus, ui, supervisor, logviewer)
 - [ ] clean-up storm-local on package removal, so it doesn't collide with further installations
 - [ ] storm user home??? ($STORM.HOME is owned by root.)
-- [ ] check package installation behaviour when home folder exists.
+- [ ] check package installation behavior when home folder exists.
 - [ ] https://wiki.debian.org/MaintainerScripts
-- [ ] Symlinks /etc/init.d/storm-* services to /lib/init/upstart-job. for ubuntu support??? check ubuntu upstart...
 
 ## Storm Package Sample Layout
 
-```
-$ dpkg -c /vagrant/apache-storm_0.9.2-incubating_all.deb
+After you have built a package run the next command to display package layout.
+Pass-in your package name:
 
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/storm/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/storm/storm-local/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/log/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/log/storm/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/doc/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/doc/apache-storm/
--rw-r--r-- root/root       215 2014-07-23 14:49 ./usr/share/doc/apache-storm/copyright
--rw-r--r-- root/root       184 2014-10-23 13:50 ./usr/share/doc/apache-storm/changelog.Debian.gz
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/storm/
--rw-r--r-- root/root        17 2014-06-16 12:22 ./usr/lib/storm/RELEASE
--rw-r--r-- root/root       981 2014-06-10 13:10 ./usr/lib/storm/NOTICE
--rw-r--r-- root/root       538 2014-03-12 23:17 ./usr/lib/storm/DISCLAIMER
-drwxr-xr-x root/root         0 2014-06-16 12:22 ./usr/lib/storm/public/
--rw-r--r-- root/root      4141 2014-06-11 16:07 ./usr/lib/storm/public/index.html
-drwxr-xr-x root/root         0 2014-05-29 12:20 ./usr/lib/storm/public/css/
--rw-r--r-- root/root     56497 2014-03-12 23:17 ./usr/lib/storm/public/css/bootstrap-1.4.0.css
--rw-r--r-- root/root      1088 2014-05-29 12:20 ./usr/lib/storm/public/css/style.css
-drwxr-xr-x root/root         0 2014-06-11 17:03 ./usr/lib/storm/public/templates/
--rw-r--r-- root/root      9880 2014-06-11 17:03 ./usr/lib/storm/public/templates/topology-page-template.html
--rw-r--r-- root/root     13535 2014-06-11 16:07 ./usr/lib/storm/public/templates/component-page-template.html
--rw-r--r-- root/root       884 2014-06-11 16:07 ./usr/lib/storm/public/templates/json-error-template.html
--rw-r--r-- root/root      4685 2014-06-11 16:07 ./usr/lib/storm/public/templates/index-page-template.html
-drwxr-xr-x root/root         0 2014-06-11 16:07 ./usr/lib/storm/public/js/
--rw-r--r-- root/root     15826 2014-06-09 14:45 ./usr/lib/storm/public/js/arbor-tween.js
--rw-r--r-- root/root     16959 2014-06-11 15:04 ./usr/lib/storm/public/js/jquery.mustache.js
--rw-r--r-- root/root      5017 2014-06-09 14:25 ./usr/lib/storm/public/js/script.js
--rw-r--r-- root/root      5496 2013-12-05 12:33 ./usr/lib/storm/public/js/jquery.cookies.2.2.0.min.js
--rw-r--r-- root/root     14975 2014-06-11 16:07 ./usr/lib/storm/public/js/visualization.js
--rw-r--r-- root/root     15976 2014-06-09 14:45 ./usr/lib/storm/public/js/arbor-graphics.js
--rw-r--r-- root/root     27481 2014-06-09 14:45 ./usr/lib/storm/public/js/arbor.js
--rw-r--r-- root/root     91555 2013-12-05 12:33 ./usr/lib/storm/public/js/jquery-1.6.2.min.js
--rw-r--r-- root/root     16532 2013-12-05 12:33 ./usr/lib/storm/public/js/jquery.tablesorter.min.js
--rw-r--r-- root/root      8830 2014-06-09 14:25 ./usr/lib/storm/public/js/purl.js
--rw-r--r-- root/root      7981 2014-03-12 23:17 ./usr/lib/storm/public/js/bootstrap-twipsy.js
--rw-r--r-- root/root      5093 2014-06-11 16:07 ./usr/lib/storm/public/topology.html
--rw-r--r-- root/root      5475 2014-06-11 16:07 ./usr/lib/storm/public/component.html
--rw-r--r-- root/root      3581 2014-05-29 12:20 ./usr/lib/storm/SECURITY.md
-drwxr-xr-x root/root         0 2014-06-16 12:22 ./usr/lib/storm/lib/
--rw-r--r-- root/root     67254 2014-02-26 12:39 ./usr/lib/storm/lib/curator-client-2.4.0.jar
--rw-r--r-- root/root     65612 2013-12-27 14:24 ./usr/lib/storm/lib/reflectasm-1.07-shaded.jar
--rw-r--r-- root/root    208781 2013-12-27 14:23 ./usr/lib/storm/lib/jline-2.11.jar
--rw-r--r-- root/root      3122 2013-12-27 14:24 ./usr/lib/storm/lib/clout-1.0.1.jar
--rw-r--r-- root/root      3210 2013-12-27 14:24 ./usr/lib/storm/lib/ring-servlet-0.3.11.jar
--rw-r--r-- root/root    785556 2014-02-26 12:14 ./usr/lib/storm/lib/netty-3.2.2.Final.jar
--rw-r--r-- root/root    232771 2014-01-05 20:55 ./usr/lib/storm/lib/commons-codec-1.6.jar
--rw-r--r-- root/root    185140 2014-01-30 21:17 ./usr/lib/storm/lib/commons-io-2.4.jar
--rw-r--r-- root/root     21932 2013-12-27 14:24 ./usr/lib/storm/lib/ring-core-1.1.5.jar
--rw-r--r-- root/root    282269 2014-03-26 14:41 ./usr/lib/storm/lib/httpcore-4.3.2.jar
--rw-r--r-- root/root   5308970 2014-06-13 16:57 ./usr/lib/storm/lib/storm-core-0.9.2-incubating.jar
--rw-r--r-- root/root     46022 2013-12-27 14:24 ./usr/lib/storm/lib/asm-4.0.jar
--rw-r--r-- root/root      6367 2013-12-27 14:24 ./usr/lib/storm/lib/ring-devel-0.3.11.jar
--rw-r--r-- root/root    333259 2013-12-27 14:24 ./usr/lib/storm/lib/jgrapht-core-0.9.0.jar
--rw-r--r-- root/root    179720 2014-02-26 12:39 ./usr/lib/storm/lib/curator-framework-2.4.0.jar
--rw-r--r-- root/root     16046 2013-12-27 14:24 ./usr/lib/storm/lib/json-simple-1.1.jar
--rw-r--r-- root/root   1202373 2013-12-27 14:24 ./usr/lib/storm/lib/netty-3.6.3.Final.jar
--rw-r--r-- root/root    177131 2013-12-27 14:24 ./usr/lib/storm/lib/jetty-util-6.1.26.jar
--rw-r--r-- root/root      6372 2013-12-27 14:24 ./usr/lib/storm/lib/compojure-1.1.3.jar
--rw-r--r-- root/root      4965 2013-12-27 14:24 ./usr/lib/storm/lib/minlog-1.2.jar
--rw-r--r-- root/root    270553 2013-12-27 14:24 ./usr/lib/storm/lib/snakeyaml-1.11.jar
--rw-r--r-- root/root    363460 2014-03-26 12:22 ./usr/lib/storm/lib/kryo-2.21.jar
--rw-r--r-- root/root    251784 2013-12-27 14:24 ./usr/lib/storm/lib/logback-classic-1.0.6.jar
--rw-r--r-- root/root    349706 2013-12-27 14:24 ./usr/lib/storm/lib/logback-core-1.0.6.jar
--rw-r--r-- root/root     51426 2013-12-27 14:24 ./usr/lib/storm/lib/disruptor-2.10.1.jar
--rw-r--r-- root/root     57779 2013-12-27 14:23 ./usr/lib/storm/lib/commons-fileupload-1.2.1.jar
--rw-r--r-- root/root     25962 2013-12-27 14:24 ./usr/lib/storm/lib/slf4j-api-1.6.5.jar
--rw-r--r-- root/root    569231 2013-12-27 14:24 ./usr/lib/storm/lib/joda-time-2.0.jar
--rw-r--r-- root/root    589512 2014-03-26 14:41 ./usr/lib/storm/lib/httpclient-4.3.3.jar
--rw-r--r-- root/root     20647 2013-12-27 14:24 ./usr/lib/storm/lib/log4j-over-slf4j-1.6.6.jar
--rw-r--r-- root/root     62050 2014-01-30 21:06 ./usr/lib/storm/lib/commons-logging-1.1.3.jar
--rw-r--r-- root/root      2441 2013-12-27 14:24 ./usr/lib/storm/lib/ring-jetty-adapter-0.3.11.jar
--rw-r--r-- root/root      4646 2013-12-27 14:24 ./usr/lib/storm/lib/math.numeric-tower-0.0.1.jar
--rw-r--r-- root/root      3429 2014-05-07 12:07 ./usr/lib/storm/lib/tools.cli-0.2.4.jar
--rw-r--r-- root/root     52543 2013-12-27 14:24 ./usr/lib/storm/lib/commons-exec-1.1.jar
--rw-r--r-- root/root    539912 2013-12-27 14:24 ./usr/lib/storm/lib/jetty-6.1.26.jar
--rw-r--r-- root/root     46717 2014-03-26 12:22 ./usr/lib/storm/lib/chill-java-0.3.5.jar
--rw-r--r-- root/root      7088 2013-12-27 14:24 ./usr/lib/storm/lib/tools.logging-0.2.3.jar
--rw-r--r-- root/root    134133 2013-12-27 14:24 ./usr/lib/storm/lib/servlet-api-2.5-20081211.jar
--rw-r--r-- root/root   3585371 2013-12-29 23:47 ./usr/lib/storm/lib/clojure-1.5.1.jar
--rw-r--r-- root/root      6204 2013-12-27 14:23 ./usr/lib/storm/lib/clj-stacktrace-0.2.4.jar
--rw-r--r-- root/root    105112 2013-12-27 14:23 ./usr/lib/storm/lib/servlet-api-2.5.jar
--rw-r--r-- root/root      3129 2013-12-27 14:24 ./usr/lib/storm/lib/core.incubator-0.1.0.jar
--rw-r--r-- root/root    279193 2013-12-27 14:21 ./usr/lib/storm/lib/commons-lang-2.5.jar
--rw-r--r-- root/root     26245 2014-03-26 12:22 ./usr/lib/storm/lib/carbonite-1.4.0.jar
--rw-r--r-- root/root    779974 2014-01-22 01:37 ./usr/lib/storm/lib/zookeeper-3.4.5.jar
--rw-r--r-- root/root      9386 2013-12-27 14:24 ./usr/lib/storm/lib/clj-time-0.4.1.jar
--rw-r--r-- root/root     36046 2013-12-27 14:24 ./usr/lib/storm/lib/objenesis-1.2.jar
--rw-r--r-- root/root      5170 2013-12-27 14:24 ./usr/lib/storm/lib/tools.macro-0.1.0.jar
--rw-r--r-- root/root   1891102 2013-12-27 14:24 ./usr/lib/storm/lib/guava-13.0.jar
--rw-r--r-- root/root      7898 2013-12-27 14:24 ./usr/lib/storm/lib/hiccup-0.3.6.jar
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/storm/bin/
--rwxr-xr-x root/root     16901 2014-05-29 12:20 ./usr/lib/storm/bin/storm
--rw-r--r-- root/root      7445 2014-06-09 14:24 ./usr/lib/storm/README.markdown
--rw-r--r-- root/root     34239 2014-06-12 20:46 ./usr/lib/storm/CHANGELOG.md
--rw-r--r-- root/root     22822 2014-06-11 16:07 ./usr/lib/storm/LICENSE
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/bin/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/init.d/
--rwxr-xr-x root/root      1726 2014-10-23 13:55 ./etc/init.d/storm-ui
--rwxr-xr-x root/root      1738 2014-10-23 13:54 ./etc/init.d/storm-drpc
--rwxr-xr-x root/root      1817 2014-10-23 13:55 ./etc/init.d/storm-supervisor
--rwxr-xr-x root/root      1769 2014-10-23 13:55 ./etc/init.d/storm-nimbus
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/init/
--rw-r--r-- root/root       308 2014-10-23 13:51 ./etc/init/storm-drpc.conf
--rw-r--r-- root/root       316 2014-10-23 13:51 ./etc/init/storm-nimbus.conf
--rw-r--r-- root/root       332 2014-10-23 13:51 ./etc/init/storm-supervisor.conf
--rw-r--r-- root/root       300 2014-10-23 13:51 ./etc/init/storm-ui.conf
-drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/storm/
--rw-r--r-- root/root      3083 2014-05-28 12:24 ./etc/storm/cluster.xml
--rw-r--r-- root/root      1126 2014-05-28 12:24 ./etc/storm/storm_env.ini
--rw-r--r-- root/root      1613 2014-05-28 12:24 ./etc/storm/storm.yaml
-lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/conf -> /etc/storm
-lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/logback -> /etc/storm
-lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/storm-local -> /var/lib/storm/storm-local
-lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/logs -> /var/log/storm
-lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/bin/storm -> ../lib/storm/bin/storm
+```
+$ dpkg -c /vagrant/apache-storm_*.deb
+```
+
+### Sample layout:
+
+```
+...
 ```
 
 ## License:
