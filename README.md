@@ -57,8 +57,7 @@ Like [saltstack](http://www.saltstack.com/),
 
 ## Compatibity:
 
-* This version is intended to be used against 0.9.2 and Debian Wheezy.
-Presumably it can be ran on any other debian-based distribution, because relies only on LSB.
+* This version is intended to be used against 0.9.2 and Debian Wheezy. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
 
 ## Details:
@@ -180,21 +179,21 @@ Things to do:
 ```
 $ dpkg -c /vagrant/apache-storm_0.9.2-incubating_all.deb
 
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/lib/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/lib/storm/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/lib/storm/storm-local/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/log/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./var/log/storm/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/share/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/share/doc/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/share/doc/apache-storm/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/storm/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/lib/storm/storm-local/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/log/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./var/log/storm/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/doc/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/share/doc/apache-storm/
 -rw-r--r-- root/root       215 2014-07-23 14:49 ./usr/share/doc/apache-storm/copyright
--rw-r--r-- root/root       160 2014-07-24 14:39 ./usr/share/doc/apache-storm/changelog.Debian.gz
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/lib/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/lib/storm/
+-rw-r--r-- root/root       184 2014-10-23 13:50 ./usr/share/doc/apache-storm/changelog.Debian.gz
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/storm/
 -rw-r--r-- root/root        17 2014-06-16 12:22 ./usr/lib/storm/RELEASE
 -rw-r--r-- root/root       981 2014-06-10 13:10 ./usr/lib/storm/NOTICE
 -rw-r--r-- root/root       538 2014-03-12 23:17 ./usr/lib/storm/DISCLAIMER
@@ -275,27 +274,32 @@ drwxr-xr-x root/root         0 2014-06-16 12:22 ./usr/lib/storm/lib/
 -rw-r--r-- root/root      5170 2013-12-27 14:24 ./usr/lib/storm/lib/tools.macro-0.1.0.jar
 -rw-r--r-- root/root   1891102 2013-12-27 14:24 ./usr/lib/storm/lib/guava-13.0.jar
 -rw-r--r-- root/root      7898 2013-12-27 14:24 ./usr/lib/storm/lib/hiccup-0.3.6.jar
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/lib/storm/bin/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/lib/storm/bin/
 -rwxr-xr-x root/root     16901 2014-05-29 12:20 ./usr/lib/storm/bin/storm
 -rw-r--r-- root/root      7445 2014-06-09 14:24 ./usr/lib/storm/README.markdown
 -rw-r--r-- root/root     34239 2014-06-12 20:46 ./usr/lib/storm/CHANGELOG.md
 -rw-r--r-- root/root     22822 2014-06-11 16:07 ./usr/lib/storm/LICENSE
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./usr/bin/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./etc/
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./etc/init.d/
--rwxr-xr-x root/root      1726 2014-07-25 09:30 ./etc/init.d/storm-ui
--rwxr-xr-x root/root      1738 2014-07-25 09:30 ./etc/init.d/storm-drpc
--rwxr-xr-x root/root      1817 2014-07-25 09:30 ./etc/init.d/storm-supervisor
--rwxr-xr-x root/root      1769 2014-07-25 09:30 ./etc/init.d/storm-nimbus
-drwxr-xr-x root/root         0 2014-07-25 11:31 ./etc/storm/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./usr/bin/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/init.d/
+-rwxr-xr-x root/root      1726 2014-10-23 13:55 ./etc/init.d/storm-ui
+-rwxr-xr-x root/root      1738 2014-10-23 13:54 ./etc/init.d/storm-drpc
+-rwxr-xr-x root/root      1817 2014-10-23 13:55 ./etc/init.d/storm-supervisor
+-rwxr-xr-x root/root      1769 2014-10-23 13:55 ./etc/init.d/storm-nimbus
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/init/
+-rw-r--r-- root/root       308 2014-10-23 13:51 ./etc/init/storm-drpc.conf
+-rw-r--r-- root/root       316 2014-10-23 13:51 ./etc/init/storm-nimbus.conf
+-rw-r--r-- root/root       332 2014-10-23 13:51 ./etc/init/storm-supervisor.conf
+-rw-r--r-- root/root       300 2014-10-23 13:51 ./etc/init/storm-ui.conf
+drwxr-xr-x root/root         0 2014-10-23 14:16 ./etc/storm/
 -rw-r--r-- root/root      3083 2014-05-28 12:24 ./etc/storm/cluster.xml
 -rw-r--r-- root/root      1126 2014-05-28 12:24 ./etc/storm/storm_env.ini
 -rw-r--r-- root/root      1613 2014-05-28 12:24 ./etc/storm/storm.yaml
-lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/lib/storm/conf -> /etc/storm
-lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/lib/storm/logback -> /etc/storm
-lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/lib/storm/storm-local -> /var/lib/storm/storm-local
-lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/lib/storm/logs -> /var/log/storm
-lrwxrwxrwx root/root         0 2014-07-25 11:31 ./usr/bin/storm -> ../lib/storm/bin/storm
+lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/conf -> /etc/storm
+lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/logback -> /etc/storm
+lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/storm-local -> /var/lib/storm/storm-local
+lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/lib/storm/logs -> /var/log/storm
+lrwxrwxrwx root/root         0 2014-10-23 14:16 ./usr/bin/storm -> ../lib/storm/bin/storm
 ```
 
 ## License:
