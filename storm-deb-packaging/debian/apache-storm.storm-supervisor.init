@@ -14,7 +14,7 @@ NAME="storm-supervisor"
 DESC="storm supervisor"
 STORM_USER="storm"
 STORM_HOME="/usr/lib/storm"
-STORM_SUPERVISOR_PID="/var/run/storm-supervisor.pid"
+PID="/var/run/storm-supervisor.pid"
 
 # Include storm defaults if available
 if [ -f /etc/default/storm ] ; then
@@ -33,10 +33,8 @@ set -e
 STORM_CMD="/usr/bin/storm supervisor"
 
 running() {
-  kill -0 `cat ${STORM_SUPERVISOR_PID}` > /dev/null 2>&1
+  kill -0 `cat ${PID}` > /dev/null 2>&1
 }
-
-PID=${STORM_SUPERVISOR_PID}
 
 case "$1" in
   start)

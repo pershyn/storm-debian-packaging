@@ -14,7 +14,7 @@ NAME="storm-nimbus"
 DESC="storm-nimbus"
 STORM_USER="storm"
 STORM_HOME="/usr/lib/storm"
-STORM_NIMBUS_PID="/var/run/storm-nimbus.pid"
+PID="/var/run/storm-nimbus.pid"
 
 # Include storm defaults if available
 if [ -f /etc/default/storm ] ; then
@@ -33,10 +33,8 @@ set -e
 STORM_CMD="/usr/bin/storm nimbus"
 
 running() {
-  kill -0 `cat ${STORM_NIMBUS_PID}` > /dev/null 2>&1
+  kill -0 `cat ${PID}` > /dev/null 2>&1
 }
-
-PID=${STORM_NIMBUS_PID}
 
 case "$1" in
   start)

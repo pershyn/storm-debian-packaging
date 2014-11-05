@@ -14,7 +14,7 @@ NAME="storm-ui"
 DESC="storm-ui"
 STORM_USER="storm"
 STORM_HOME="/usr/lib/storm"
-STORM_UI_PID="/var/run/storm-ui.pid"
+PID="/var/run/storm-ui.pid"
 
 # Include storm defaults if available
 if [ -f /etc/default/storm ] ; then
@@ -33,10 +33,8 @@ set -e
 STORM_CMD="/usr/bin/storm ui"
 
 running() {
-  kill -0 `cat ${STORM_UI_PID}` > /dev/null 2>&1
+  kill -0 `cat ${PID}` > /dev/null 2>&1
 }
-
-PID=${STORM_UI_PID}
 
 case "$1" in
   start)
@@ -53,7 +51,7 @@ case "$1" in
     echo -n "Restarting $DESC: "
     start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
     sleep 1
-    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD}  || true
+    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
     echo "$NAME."
     ;;
   status)
