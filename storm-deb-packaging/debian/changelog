@@ -1,6 +1,7 @@
-apache-storm (0.9.3-incubating-SNAPSHOT) stable; urgency=low
+apache-storm (0.9.3-rc1) stable; urgency=low
 
-  * New packaging for storm. (see /usr/lib/storm/CHANGELOG.md)
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+  * Added storm logviewer init script
 
  -- Michael Pershyn <michael.pershyn@gmail.com>  Wed, 23 Jul 2014 10:46:16 +0100
 

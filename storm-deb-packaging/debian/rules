@@ -16,16 +16,27 @@ export DH_VERBOSE=1
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-# Prepare sources
-#export ORIG_PATH=apache-storm-0.9.2-incubating
-export ORIG_PATH=apache-storm-0.9.3-incubating-SNAPSHOT
+# ORIG_PATH points to version that should be built.
+# - !!! Ensure the right version is downloaded below
+# - !!! Ensure the right version is stated in changelog.
+# export ORIG_PATH=apache-storm-0.9.2-incubating
+# export ORIG_PATH=apache-storm-0.9.3-incubating-SNAPSHOT
+export ORIG_PATH=apache-storm-0.9.3-rc1
 
 override_dh_auto_build:
 
+  # Getting the storm binary distribution.
+  ##############################################################################
+
 	# Ensure apache zip is downloaded to project root `./downloads`
 	# wget -c -P ../downloads http://www.eu.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.zip
+	wget -c -P ../downloads http://people.apache.org/~ptgoetz/apache-storm-0.9.3-rc1/apache-storm-0.9.3-rc1.zip
 
-	# If snapshot version should be used - comment the line above, put the zip to `../downloads` and change ORIG_PATH
+	# If snapshot version should be used - comment the line above,
+	# copy required *.zip to `../downloads`
+	# and change ORIG_PATH and debian/changelog accordingly
+
+	##############################################################################
 
 	# Unpack required zip contents to orig folder.
 	rm -rf ${ORIG_PATH}

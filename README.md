@@ -28,7 +28,13 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 
 1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your prefered values, so you get contacted if other people will use the package compiled by you.
 2. Prepare the environment. You should have debian-based distribution with all tools listed in `bootstrap.sh` installed. Also, Vagrant is recommended, please find details below.
-3. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions below.
+3. Make sure you have desired versions specified in `debian/rules` file and `debian/changelog`. _By default the version `apache-storm-0.9.3-rc1` will be built._
+4. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
+5. [Optional] After you have built a package, run the next command to display package layout. Pass-in your package version:
+```
+$ dpkg -c /vagrant/apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
+```
+The sample layout can be found in the [SAMPLE_LAYOUT.txt](SAMPLE_LAYOUT.txt) file in repository.
 
 ### Creating a package of SNAPSHOT version of storm.
 
@@ -40,7 +46,7 @@ Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob
     # Create the binary distribution.
     $ cd storm-dist/binary && mvn package
 
-Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-packaging/downloads` and edit the `rules` and `changelog` files to use this zip.
+Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-packaging/downloads` and edit the `debian/rules` and `debian/changelog` files to use this zip.
 
 ## Using a package:
 
@@ -189,21 +195,6 @@ Things to do:
 - [ ] storm user home??? ($STORM.HOME is owned by root.)
 - [ ] check package installation behavior when home folder exists.
 - [ ] https://wiki.debian.org/MaintainerScripts
-
-## Storm Package Sample Layout
-
-After you have built a package run the next command to display package layout.
-Pass-in your package name:
-
-```
-$ dpkg -c /vagrant/apache-storm_*.deb
-```
-
-### Sample layout:
-
-```
-...
-```
 
 ## License:
 
