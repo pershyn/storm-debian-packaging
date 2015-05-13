@@ -1,3 +1,9 @@
+apache-storm (0.9.3) stable; urgency=low
+
+  * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
+
+ -- Curtis Allen <curtis.n.allen@gmail.com>  Mon, 22 Dec 2014 10:46:16 +0100
+
 apache-storm (0.9.3-rc1) stable; urgency=low
 
   * Updated to new storm version (See storm changelog here: /usr/lib/storm/CHANGELOG.md)
