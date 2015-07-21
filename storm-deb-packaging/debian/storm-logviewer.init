@@ -44,14 +44,14 @@ case "$1" in
     ;;
   stop)
     echo -n "Stopping $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    start-stop-daemon --stop --quiet --pidfile ${PID} --exec /usr/bin/java || true
     echo "$NAME."
     ;;
   restart)
     echo -n "Restarting $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    $0 stop
     sleep 1
-    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
+    $0 start
     echo "$NAME."
     ;;
   status)

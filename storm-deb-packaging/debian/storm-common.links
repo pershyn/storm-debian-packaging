@@ -16,3 +16,6 @@ var/lib/storm/storm-local usr/lib/storm/storm-local
 # link the binary
 # so when storm is called it will refer to ./lib
 usr/lib/storm/bin/storm usr/bin/storm
+# Silly workaround to make /usr/bin/storm happy. Ideally we should patch that
+# file to check for the proper location of RELEASE.
+usr/share/doc/storm/RELEASE usr/lib/storm/RELEASE

@@ -2,10 +2,23 @@ Source: apache-storm
 Section: net
 Priority: extra
 Maintainer: Michael Pershyn <michael.pershyn@gmail.com>
-Build-Depends: debhelper (>= 7.0.50~), java-runtime-headless, openjdk-6-jre-headless (>= 6b19) | sun-java6-jre (>= 6b19)
+Build-Depends: debhelper (>= 7.0.50~), java-runtime-headless, openjdk-6-jre-headless (>= 6b19) | sun-java6-jre (>= 6b19), wget
 Standards-Version: 3.9.1
 
-Package: apache-storm
+Package: storm
+Architecture: all
+Depends: storm-common
+Recommends: storm-ui, storm-nimbus, storm-supervisor, storm-logviewer, storm-logviewer
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This is a meta package that depends on the essential packages required for
+ storm.
+
+Package: storm-common
 Architecture: all
 Depends: java-runtime-headless
 Description: Storm is a distributed realtime computation system
@@ -13,3 +26,60 @@ Description: Storm is a distributed realtime computation system
  Storm provides a set of general primitives for doing realtime computation.
  Storm is simple, can be used with any programming language,
  is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the files required by all other storm packages.
+
+Package: storm-ui
+Architecture: all
+Depends: storm-common
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the init scripts to run storm ui.
+
+Package: storm-nimbus
+Architecture: all
+Depends: storm-common
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the init scripts to run storm nimbus.
+
+Package: storm-supervisor
+Architecture: all
+Depends: storm-common
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the init scripts to run storm supervisor.
+
+Package: storm-logviewer
+Architecture: all
+Depends: storm-common
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the init scripts to run storm logviewer.
+
+Package: storm-drpc
+Architecture: all
+Depends: storm-common
+Description: Storm is a distributed realtime computation system
+ Similar to how Hadoop provides a set of general primitives for doing batch processing.
+ Storm provides a set of general primitives for doing realtime computation.
+ Storm is simple, can be used with any programming language,
+ is used by many companies, and is a lot of fun to use!
+ .
+ This package contains the init scripts to run storm drpc.

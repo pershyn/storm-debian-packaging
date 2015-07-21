@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ -f /etc/default/storm ] ; then
+    . /etc/default/storm
+fi
+
+if [ -f /etc/default/storm-ui ] ; then
+    . /etc/default/storm-ui
+fi
+exec sudo -u storm storm ui 2>&1

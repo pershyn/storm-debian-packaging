@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ -f /etc/default/storm ] ; then
+    . /etc/default/storm
+fi
+
+if [ -f /etc/default/storm-logviewer ] ; then
+    . /etc/default/storm-logviewer
+fi
+exec sudo -u storm storm logviewer 2>&1

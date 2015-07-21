@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ -f /etc/default/storm ] ; then
+    . /etc/default/storm
+fi
+
+if [ -f /etc/default/storm-supervisor ] ; then
+    . /etc/default/storm-supervisor
+fi
+exec sudo -u storm storm supervisor 2>&1

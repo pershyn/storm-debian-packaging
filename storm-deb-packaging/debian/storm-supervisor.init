@@ -1,28 +1,28 @@
 #! /bin/bash
 
 ### BEGIN INIT INFO
-# Provides:          storm-nimbus
+# Provides:          storm-supervisor
 # Required-Start:    $local_fs $remote_fs $network $syslog
 # Required-Stop:     $local_fs $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: starts the storm nimbus server
-# Description:       starts storm-nimbus using start-stop-daemon
+# Short-Description: starts the storm supervisor server
+# Description:       starts storm-supervisor using start-stop-daemon
 ### END INIT INFO
 
-NAME="storm-nimbus"
-DESC="storm-nimbus"
+NAME="storm-supervisor"
+DESC="storm supervisor"
 STORM_USER="storm"
 STORM_HOME="/usr/lib/storm"
-PID="/var/run/storm-nimbus.pid"
+PID="/var/run/storm-supervisor.pid"
 
 # Include storm defaults if available
 if [ -f /etc/default/storm ] ; then
     . /etc/default/storm
 fi
 
-if [ -f /etc/default/storm-nimbus ] ; then
-    . /etc/default/storm-nimbus
+if [ -f /etc/default/storm-supervisor ] ; then
+    . /etc/default/storm-supervisor
 fi
 
 set -e
@@ -30,7 +30,7 @@ set -e
 . /lib/lsb/init-functions
 
 # Set STORM Options
-STORM_CMD="/usr/bin/storm nimbus"
+STORM_CMD="/usr/bin/storm supervisor"
 
 running() {
   kill -0 `cat ${PID}` > /dev/null 2>&1
@@ -44,14 +44,14 @@ case "$1" in
     ;;
   stop)
     echo -n "Stopping $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    start-stop-daemon --stop --quiet --pidfile ${PID} --exec /usr/bin/java || true
     echo "$NAME."
     ;;
   restart)
     echo -n "Restarting $DESC: "
-    start-stop-daemon --stop --quiet --pidfile ${PID} --exec ${STORM_CMD} || true
+    $0 stop
     sleep 1
-    start-stop-daemon --start --background --quiet --pidfile ${PID} --make-pidfile --chuid ${STORM_USER} --chdir ${STORM_HOME} --exec ${STORM_CMD} || true
+    $0 start
     echo "$NAME."
     ;;
   status)
