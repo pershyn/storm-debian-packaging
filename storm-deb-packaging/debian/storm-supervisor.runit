@@ -6,4 +6,5 @@ fi
 if [ -f /etc/default/storm-supervisor ] ; then
     . /etc/default/storm-supervisor
 fi
+cd /usr/lib/storm
 exec sudo -u storm storm supervisor 2>&1
