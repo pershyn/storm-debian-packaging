@@ -7,7 +7,7 @@ Standards-Version: 3.9.1
 
 Package: storm
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Recommends: storm-ui, storm-nimbus, storm-supervisor, storm-logviewer, storm-logviewer
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
@@ -21,6 +21,7 @@ Description: Storm is a distributed realtime computation system
 Package: storm-common
 Architecture: all
 Depends: java-runtime-headless
+Conflicts: apache-storm
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
@@ -31,7 +32,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-ui
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
@@ -42,7 +43,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-nimbus
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
@@ -53,7 +54,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-supervisor
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
@@ -64,7 +65,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-logviewer
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
@@ -75,7 +76,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-drpc
 Architecture: all
-Depends: storm-common
+Depends: storm-common (= ${binary:Version})
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
