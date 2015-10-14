@@ -8,7 +8,7 @@ Standards-Version: 3.9.1
 Package: storm
 Architecture: all
 Depends: storm-common (= ${binary:Version})
-Recommends: storm-ui, storm-nimbus, storm-supervisor, storm-logviewer, storm-logviewer
+Recommends: storm-ui, storm-nimbus, storm-supervisor, storm-logviewer, storm-drpc
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.
  Storm provides a set of general primitives for doing realtime computation.
