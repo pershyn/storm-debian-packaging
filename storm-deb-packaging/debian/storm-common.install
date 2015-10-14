@@ -7,15 +7,14 @@ orig/conf/* etc/storm/
 # skip external
 orig/lib usr/lib/storm/
 orig/logback/* etc/storm/
-orig/public usr/lib/storm/
 
 # init scripts are managed by rules
 
 # add docs
-orig/CHANGELOG.md usr/lib/storm/
-orig/DISCLAIMER usr/lib/storm/
-orig/LICENSE usr/lib/storm/
-orig/NOTICE usr/lib/storm/
-orig/README.markdown usr/lib/storm/
-orig/RELEASE usr/lib/storm/
-orig/SECURITY.md usr/lib/storm/
+orig/CHANGELOG.md usr/share/doc/storm/
+orig/DISCLAIMER usr/share/doc/storm/
+orig/LICENSE usr/share/doc/storm/
+orig/NOTICE usr/share/doc/storm/
+orig/README.markdown usr/share/doc/storm/
+orig/RELEASE usr/share/doc/storm/
+orig/SECURITY.md usr/share/doc/storm/

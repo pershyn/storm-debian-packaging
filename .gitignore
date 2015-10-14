@@ -8,7 +8,16 @@ tmp/
 *.log
 *.substvars
 *.debhelper
+.vagrant/
 storm-deb-packaging/build
 storm-deb-packaging/debian/apache-storm
 storm-deb-packaging/orig
 storm-deb-packaging/debian/files
+storm-deb-packaging/apache-storm-*/
+storm-deb-packaging/debian/storm-common/
+storm-deb-packaging/debian/storm-drpc/
+storm-deb-packaging/debian/storm-logviewer/
+storm-deb-packaging/debian/storm-nimbus/
+storm-deb-packaging/debian/storm-supervisor/
+storm-deb-packaging/debian/storm-ui/
+storm-deb-packaging/debian/storm/
