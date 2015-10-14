@@ -175,10 +175,24 @@ vagrant ssh debian
 # to build in ubuntu use `vagrant up ubuntu && vagrant ssh ubuntu`
 
 cd /vagrant
-# and then use commands from _Usage_ section.
+
+# then run
+./build.sh
 ```
 
 Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
+
+### Docker (Optional)
+
+```bash
+docker build -t storm-builder:v1 .
+
+# get the id from `docker images`
+docker run -t -i --name storm-builder -v ${PWD}:/mnt/workdir storm-builder:v1
+
+# in docker
+./build.sh
+```
 
 ### Compile time:
 
