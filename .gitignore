@@ -21,3 +21,4 @@ storm-deb-packaging/debian/storm-nimbus/
 storm-deb-packaging/debian/storm-supervisor/
 storm-deb-packaging/debian/storm-ui/
 storm-deb-packaging/debian/storm/
+*.tar.xz
