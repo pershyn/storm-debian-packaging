@@ -1,3 +1,9 @@
+apache-storm (1.0.2-1) stable; urgency=low
+
+  * Upstream update
+
+ -- Rémi BUISSON <remi.buisson@cdiscount.com>  Thu, 08 Sep 2016 08:22:43 +0200
+
 apache-storm (0.9.5-1) stable; urgency=low
 
   * Added examples for runit scripts.
