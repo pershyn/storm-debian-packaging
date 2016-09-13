@@ -20,7 +20,7 @@ Description: Storm is a distributed realtime computation system
 
 Package: storm-common
 Architecture: all
-Depends: openjdk-7-jre-headless
+Depends: openjdk-7-jre-headless, python
 Conflicts: apache-storm
 Description: Storm is a distributed realtime computation system
  Similar to how Hadoop provides a set of general primitives for doing batch processing.

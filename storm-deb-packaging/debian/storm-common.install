@@ -2,6 +2,7 @@
 # So far `orig` is used.
 
 orig/bin/storm usr/lib/storm/bin
+orig/bin/storm.py usr/lib/storm/bin
 orig/conf/* etc/storm/
 # skip the examples
 # skip external
