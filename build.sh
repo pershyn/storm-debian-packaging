@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd storm-deb-packaging
+pushd buildroot
 
 dpkg-buildpackage -rfakeroot
 
