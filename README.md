@@ -24,15 +24,27 @@ Before you proceed to build a package, you may be interested to keep in mind nex
 * Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
 * [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
 
-## Building a package:
+## Building a package
 
-1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your prefered values, so you get contacted if other people will use the package compiled by you.
-2. Prepare the environment. You should have debian-based distribution with all tools listed in `bootstrap.sh` installed. Also, Vagrant is recommended, please find details below.
-3. Make sure you have desired versions specified in `debian/rules` file and `debian/changelog`. _By default the version `apache-storm-0.9.4` will be built._
-4. Run the `build.sh`. It will go to nested folder `storm-deb-packaging` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
-5. [Optional] After you have built a package, run the next command to display package layout. Pass-in your package version:
+### Prepare repository and choose version of a package
+
+1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your preferred values, so you get contacted if other people will use the package compiled by you.
+2. Make sure you have desired versions specified in `debian/rules` file and `debian/changelog`. _By default the version `apache-storm-0.9.6` will be built._
+
+### Build a package using docker
+
+I prefer to build the package in docker container.
+For that `docker` and `make` should be installed.
+
+Just run `make docker_package`, and the package will be built.
+
+### Build a package in native debian-based-environment
+
+1. Install necessary dependencies (see Dockerfile).
+2. Run the `build.sh`. It will go to the nested `buildroot` folder, that contains `debian` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
+3. [Optional] After you have built a package, run the next command to display package layout. Pass-in your package version:
 ```
-$ dpkg -c /vagrant/apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
+$ dpkg -c ./apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
 ```
 The sample layout can be found in the [SAMPLE_LAYOUT.txt](SAMPLE_LAYOUT.txt) file in repository.
 
@@ -52,7 +64,7 @@ Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-pa
 
 According to [official storm guide](https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster)
 you have to have next things installed:
-- Java 6. But, according to [recent info](https://www.mail-archive.com/user@storm.incubator.apache.org/msg03230.html), storm-0.9.x works perfectly with java 1.6, 1.7 and 1.8. Also both openjdk and oracle jdk are supported.
+- Java 6. But, according to [recent info](https://www.mail-archive.com/user@storm.incubator.apache.org/msg03230.html), storm-0.9.x works perfectly with java 1.6, 1.7 and 1.8. Also both openjdk and oracle jdk are supported. This package is build with java 7.
 - Python 2.6.6 - It may work also with other version, however this one claimed to be tested.
 
 During the installation storm package also creates or enables existing storm user.
@@ -75,7 +87,7 @@ Like [saltstack](http://www.saltstack.com/),
 
 ## Compatibity:
 
-* This version is intended to be used against 0.9.2 and Debian Wheezy. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
+* This version is intended to be used against 0.9.6 and Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
 
 ## Details:
@@ -181,18 +193,6 @@ cd /vagrant
 ```
 
 Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
-
-### Docker (Optional)
-
-```bash
-docker build -t storm-builder:v1 .
-
-# get the id from `docker images`
-docker run -t -i --name storm-builder -v ${PWD}:/mnt/workdir storm-builder:v1
-
-# in docker
-./build.sh
-```
 
 ### Compile time:
 
