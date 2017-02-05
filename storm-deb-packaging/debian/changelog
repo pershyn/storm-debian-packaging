@@ -4,6 +4,12 @@ apache-storm (1.0.2-1) stable; urgency=low
 
  -- Rémi BUISSON <remi.buisson@cdiscount.com>  Thu, 08 Sep 2016 08:22:43 +0200
 
+apache-storm (0.9.6) stable; urgency=low
+
+  * Updated to 0.9.6
+
+ -- Eoin O'Brien <eoin@eoinobrien.ie>  Thur, 5 Nov 2015 22:54:00 +0000
+
 apache-storm (0.9.5-1) stable; urgency=low
 
   * Added examples for runit scripts.
