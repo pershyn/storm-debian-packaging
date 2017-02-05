@@ -10,6 +10,7 @@ downloads/
 *.debhelper
 .vagrant/
 apache-storm/apache-storm-*/
+apache-storm/build
 apache-storm/debian/apache-storm
 apache-storm/debian/files
 apache-storm/debian/storm-common/
@@ -19,3 +20,4 @@ apache-storm/debian/storm-nimbus/
 apache-storm/debian/storm-supervisor/
 apache-storm/debian/storm-ui/
 apache-storm/debian/storm/
+apache-storm/orig
