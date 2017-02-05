@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pushd buildroot
+pushd apache-storm
 
-dpkg-buildpackage -rfakeroot
+dpkg-buildpackage -b -rfakeroot
 
 popd
