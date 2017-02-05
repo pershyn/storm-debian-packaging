@@ -1,52 +1,47 @@
 # Storm Debian Packaging
 
-Debian packaging for [Apache Storm](http://storm.incubator.apache.org) distributed
+Debian packaging for [Apache Storm](http://storm.apache.org) distributed
 realtime computation system.
 
 The goal of this project is to provide a flexible tool to build a debian package,
 that follows debian standards, uses default configs, supplied with storm release.
-And also can be used as easy as storm zip unpacked elsewhere, and, at the same time,
+Can be used as easy as storm zip unpacked elsewhere, and, at the same time,
 provides a flexibility to configure it for long-term high-load production use.
 
-I have [previously](https://github.com/pershyn/storm-deb-packaging) used
-[FPM](https://github.com/jordansissel/fpm/) to build storm 0.8 till 0.9.1.
-But it was hard to maintain and also messy, while there were only potential benefits
-to parametrize build for ubuntu (upstart) and theoretically rpm.
+Since storm provides several services (nimbus, supervisor, drpc, ...),
+this project provides separate packages for each service.
 
-Also, before 0.9.1 building storm involved building zmq and jzmq packages.
-That was a pain, details [here](https://github.com/pershyn/storm-deb-packaging/blob/37bca226b8183e86d63b40c33ffd776b7b105c23/README.md#zeromq-and-jzmq).
-Now these dependencies are gone and [storm flies with netty](http://yahooeng.tumblr.com/post/64758709722/making-storm-fly-with-netty) by default.
+It also provides service management with init scripts, upstart, and runit.
+It is planned to move to use systemd.
 
-Before you proceed to build a package, you may be interested to keep in mind next projects.
-* [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
-* [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
-* [storm-deploy](https://github.com/nathanmarz/storm-deploy)
-* Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
-* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
+See `STORM_VERSION` file for supported storm version.
+See `sample-layout` for example of package content.
 
 ## Building a package
 
-### Prepare repository and choose version of a package
+### Step 1. Prepare repository and choose version of a package
 
-1. Clone the repository and edit the `storm-deb-packaging/debian/changelog` to set packaging version/maintainer to your preferred values, so you get contacted if other people will use the package compiled by you.
-2. Make sure you have desired versions specified in `debian/rules` file and `debian/changelog`. _By default the version `apache-storm-0.9.6` will be built._
+1. Clone the repository.
+2. Edit the `apache-storm/debian/changelog` to set packaging version/maintainer to your preferred values, so you get contacted if other people will use the package compiled by you.
+3. Make sure you have desired version specified in `./STORM_VERSION` file and in `debian/changelog`.
 
-### Build a package using docker
+### Step 2. Build a package using docker
 
-I prefer to build the package in docker container.
+I prefer to build the packages in docker container.
 For that `docker` and `make` should be installed.
 
-Just run `make docker_package`, and the package will be built.
+Just run `make docker_package`, and the packages will be built.
 
-### Build a package in native debian-based-environment
+### Build a package in native debian-based environment
 
-1. Install necessary dependencies (see Dockerfile).
-2. Run the `build.sh`. It will go to the nested `buildroot` folder, that contains `debian` and execute the `dpkg-buildpackage -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
+1. Install necessary dependencies (see Dockerfile or build.sh).
+2. Call `make orig`, this will download the sources.
+2. Run the `build.sh`. It will go to the nested `apache-storm` folder, that contains `debian` and execute the `dpkg-buildpackage -b -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
 3. [Optional] After you have built a package, run the next command to display package layout. Pass-in your package version:
 ```
 $ dpkg -c ./apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
 ```
-The sample layout can be found in the [SAMPLE_LAYOUT.txt](SAMPLE_LAYOUT.txt) file in repository.
+The sample layouts can be found in the [sample-layout](sample-layout) folder in repository.
 
 ### Creating a package of SNAPSHOT version of storm.
 
@@ -58,7 +53,7 @@ Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob
     # Create the binary distribution.
     $ cd storm-dist/binary && mvn package
 
-Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `storm-deb-packaging/downloads` and edit the `debian/rules` and `debian/changelog` files to use this zip.
+Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `downloads` and edit the `STORM_VERSION` and `debian/changelog` files to use this zip.
 
 ## Using a package:
 
@@ -87,7 +82,7 @@ Like [saltstack](http://www.saltstack.com/),
 
 ## Compatibity:
 
-* This version is intended to be used against 0.9.6 and Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
+* This version is intended to be used against and Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
 
 ## Details:
@@ -199,7 +194,18 @@ Probably the other debian-based distribution can be used as well, if you don't h
 Provisioning script `bootstrap.sh` installs all needed dependencies for Debian-based distribution to build a package.
 Same script is used to provision Vagrant environment.
 
-Things to do:
+### Changelog/history
+
+I have [previously](https://github.com/pershyn/storm-deb-packaging) used
+[FPM](https://github.com/jordansissel/fpm/) to build storm 0.8 till 0.9.1.
+But it was hard to maintain and also messy, while there were only potential benefits
+to parametrize build for ubuntu (upstart) and theoretically rpm.
+
+Also, before 0.9.1 building storm involved building zmq and jzmq packages.
+That was a pain, details [here](https://github.com/pershyn/storm-deb-packaging/blob/37bca226b8183e86d63b40c33ffd776b7b105c23/README.md#zeromq-and-jzmq).
+Now these dependencies are gone and [storm flies with netty](http://yahooeng.tumblr.com/post/64758709722/making-storm-fly-with-netty) by default.
+
+### Things to do:
 --------------------
 
 - [ ] Add instruction about debian insserv in ubuntu
@@ -215,6 +221,13 @@ Things to do:
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as Apache Storm project.
 
 ## Links:
+
+You may be interested to keep in mind next projects.
+* [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
+* [Wirbelsturm](https://github.com/miguno/wirbelsturm) - a Vagrant and Puppet based tool to perform 1-click local and remote deployments, with a focus on big data related infrastructure.
+* [storm-deploy](https://github.com/nathanmarz/storm-deploy)
+* Tutorial how to install storm on .rpm based distibution - [Running multi-node storm cluster by Michael Noll](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/)
+* [Forks of storm-deb-packaging scripts that use FPM](https://github.com/pershyn/storm-deb-packaging/network)
 
 Also, interesting materials related to this repository.
 * according to [this discussion](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=621833) debian package should not remove any users on removal. Recommended behaviour is disabling a user.
