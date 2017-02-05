@@ -23,13 +23,12 @@ export DH_OPTIONS
 # Standard versions of storm will be downloaded automatically.
 # for example:
 # ORIG_PATH=apache-storm-0.9.2-incubating
-ORIG_PATH=apache-storm-1.0.2
+STORM_VERSION := $(shell cat ../STORM_VERSION)
+ORIG_FILE=../apache-storm_${STORM_VERSION}.orig.tar.gz
+ORIG_PATH=apache-storm-${STORM_VERSION}
 
-../downloads/${ORIG_PATH}.tar.gz:
-	wget -c -P ../downloads http://www.apache.org/dist/storm/${ORIG_PATH}/${ORIG_PATH}.tar.gz
-
-${ORIG_PATH}: ../downloads/${ORIG_PATH}.tar.gz
-	tar xf ../downloads/${ORIG_PATH}.tar.gz
+${ORIG_PATH}: ${ORIG_FILE}
+	tar xf ${ORIG_FILE}
 
 clean:
 	@- $(RM) orig \
