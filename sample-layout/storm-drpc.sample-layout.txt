@@ -1,0 +1,15 @@
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-drpc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-drpc/runit/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-drpc/runit/storm-drpc/
+-rw-r--r-- root/root       212 2017-02-05 22:21 ./usr/share/doc/storm-drpc/runit/storm-drpc/run
+-rw-r--r-- root/root       750 2017-02-05 22:20 ./usr/share/doc/storm-drpc/changelog.Debian.gz
+-rw-r--r-- root/root       215 2017-02-05 10:31 ./usr/share/doc/storm-drpc/copyright
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init/
+-rw-r--r-- root/root       308 2017-02-05 10:31 ./etc/init/storm-drpc.conf
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init.d/
+-rwxr-xr-x root/root      1482 2017-02-05 10:31 ./etc/init.d/storm-drpc

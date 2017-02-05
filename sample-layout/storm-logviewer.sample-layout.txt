@@ -1,0 +1,15 @@
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-logviewer/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-logviewer/runit/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-logviewer/runit/storm-logviewer/
+-rw-r--r-- root/root       227 2017-02-05 22:21 ./usr/share/doc/storm-logviewer/runit/storm-logviewer/run
+-rw-r--r-- root/root       750 2017-02-05 22:20 ./usr/share/doc/storm-logviewer/changelog.Debian.gz
+-rw-r--r-- root/root       215 2017-02-05 10:31 ./usr/share/doc/storm-logviewer/copyright
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init/
+-rw-r--r-- root/root       328 2017-02-05 10:31 ./etc/init/storm-logviewer.conf
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init.d/
+-rwxr-xr-x root/root      1538 2017-02-05 10:31 ./etc/init.d/storm-logviewer

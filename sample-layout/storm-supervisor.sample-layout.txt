@@ -1,0 +1,15 @@
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-supervisor/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-supervisor/runit/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./usr/share/doc/storm-supervisor/runit/storm-supervisor/
+-rw-r--r-- root/root       230 2017-02-05 22:21 ./usr/share/doc/storm-supervisor/runit/storm-supervisor/run
+-rw-r--r-- root/root       750 2017-02-05 22:20 ./usr/share/doc/storm-supervisor/changelog.Debian.gz
+-rw-r--r-- root/root       215 2017-02-05 10:31 ./usr/share/doc/storm-supervisor/copyright
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init/
+-rw-r--r-- root/root       332 2017-02-05 10:31 ./etc/init/storm-supervisor.conf
+drwxr-xr-x root/root         0 2017-02-05 22:21 ./etc/init.d/
+-rwxr-xr-x root/root      1543 2017-02-05 10:31 ./etc/init.d/storm-supervisor
