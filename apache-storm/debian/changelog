@@ -1,3 +1,12 @@
+apache-storm (1.0.2-1) stable; urgency=low
+
+  * Fetching data is now done outside of debian/rules
+  * Changed debian/source/format to 3.0 (quilt)
+  * Dropped java-6 dependency in favor of java 7
+  * Added couple fixes from forks
+
+ -- Michael Pershyn <michael.pershyn@gmail.com>  Sun, 05 Feb 2016 21:45:12 +0100
+
 apache-storm (1.0.2-0) stable; urgency=low
 
   * Upstream update
