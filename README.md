@@ -1,5 +1,7 @@
 # Storm Debian Packaging
 
+[![Build Status](https://travis-ci.org/pershyn/storm-debian-packaging.svg?branch=master)](https://travis-ci.org/pershyn/storm-debian-packaging)
+
 Debian packaging for [Apache Storm](http://storm.apache.org) distributed
 realtime computation system.
 
