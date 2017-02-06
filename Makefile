@@ -34,7 +34,7 @@ docker_rm:
 	docker inspect -f {{.Id}} --type=container $(DOCKER_CONTAINER) >/dev/null 2>&1 && \
 	docker rm -f $(DOCKER_CONTAINER) || true
 
-docker_rmi:
+docker_rmi: docker_rm
 	docker inspect -f {{.Id}} --type=image $(DOCKER_IMAGE) >/dev/null 2>&1 && \
 	docker rmi $(DOCKER_IMAGE) || true
 
