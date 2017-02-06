@@ -1,0 +1,20 @@
+# /etc/systemd/system/storm-supervisor.service
+
+# TODO: handle ulimit (in /etc/security/limits.conf?)
+# increase the amount of open files, because storm can open lots of those.
+# and default value was too small.
+# ulimit -n 15000
+#
+# TODO: check if JVM limits could be set in a new configuration file (storm_env.ini)
+# STORM_NIMBUS_JVM_MEMORY="512m"
+# STORM_SUPERVISOR_JVM_MEMORY="1024m"
+# STORM_UI_JVM_MEMORY="256m"
+
+[Unit]
+Description="Apache Storm Supervisor Service"
+
+[Service]
+ExecStart=/usr/bin/storm supervisor
+User=storm
+Restart=always
+PIDFile=/var/run/storm-supervisor.pid

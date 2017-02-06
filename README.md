@@ -9,10 +9,10 @@ That, can be used as easy as storm zip unpacked elsewhere, and, at the same time
 provides a flexibility to configure it for long-term high-load production use.
 
 Storm provides several services (nimbus, supervisor, drpc, ...).
-This project provides separate packages for each service.
+This project provides separate packages for each service with corresponding systemd unit files.
 
-It also provides service management with init scripts, upstart, and runit.
-It is planned to move to use systemd.
+Previously this project provided init scripts, upstart conf and runit.
+Now only systemd is supported. See History section below for details.
 
 See `./STORM_VERSION` file for supported storm version.
 
@@ -51,7 +51,7 @@ $ dpkg -c ./storm_*_all.deb
 ```
 The sample layouts for default version can be found in the [sample-layout](sample-layout) folder in repository.
 
-### Build package in Vagrant
+#### Build package in Vagrant
 
 The [vagrant-debian-wheezy-64](https://github.com/dotzero/vagrant-debian-wheezy-64)
 scripts were used to create a vagrant box, called `wheezy64`.
@@ -104,13 +104,20 @@ During the installation storm package also creates or enables existing storm use
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
 2. Start desired storm service with corresponding command. For example:
 ```
-#: /etc/init.d/storm-nimbus start
-#: /etc/init.d/storm-ui start
-#: /etc/init.d/storm-supervisor start
-#: /etc/init.d/storm-drpc start
-#: /etc/init.d/storm-logviewer start
+systemctl start storm-nimbus
+systemctl start storm-supervisor
+systemctl start storm-ui
+systemctl start storm-drpc
+systemctl start storm-logviewer
 ```
 3. Enable those that you need to start automatically on system restart.
+```
+systemctl enable storm-nimbus
+...
+```
+NOTE: the autorestart is configured in `*.service` unit file.
+When crashed or killed, the services are going to be started again by systemd.
+(Earlier that was done with `runit`).
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
@@ -212,12 +219,15 @@ Also, before 0.9.1 building storm involved building zmq and jzmq packages.
 That was a pain, details [here](https://github.com/pershyn/storm-deb-packaging/blob/37bca226b8183e86d63b40c33ffd776b7b105c23/README.md#zeromq-and-jzmq).
 Now these dependencies are gone and [storm flies with netty](http://yahooeng.tumblr.com/post/64758709722/making-storm-fly-with-netty) by default.
 
+In recent years all the major distributions moved avay from using SysVInit system, and started using [systemd](https://www.freedesktop.org/wiki/Software/systemd/). So did this project.
+
+Upstart was supported at some point, but now ubuntu supports systemd as well. There is less motivation to support upstart.
+
+[runit](http://smarden.org/runit/) was supported at some point, but now the autorestart is managed by systemd out of the box, and runit is not supported anymore.
+
 ### Things to do:
 --------------------
 
-- [ ] Add instruction about debian insserv in ubuntu
-- [ ] Ensure python 2.6.6 and java6/7 are added to package dependencies so they get installed automatically.
-- [ ] add a note about separate project to 5 packages (common, nimbus, ui, supervisor, logviewer)
 - [ ] clean-up storm-local on package removal, so it doesn't collide with further installations
 - [ ] storm user home??? ($STORM.HOME is owned by root.)
 - [ ] check package installation behavior when home folder exists.

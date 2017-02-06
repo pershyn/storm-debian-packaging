@@ -50,15 +50,6 @@ build: ${ORIG_PATH}
 	ln -fs ${ORIG_PATH} orig
 	touch build
 
-override_dh_install:
-	for FILE in debian/*.runit; do \
-		PACKAGE=$$(basename $$FILE); \
-		PACKAGE=$${PACKAGE%.runit}; \
-		mkdir -p debian/$$PACKAGE/usr/share/doc/$$PACKAGE/runit/$$PACKAGE/; \
-		install $$FILE debian/$$PACKAGE/usr/share/doc/$$PACKAGE/runit/$$PACKAGE/run; \
-	done
-	dh_install
-
 override_dh_auto_clean:
 	@- $(RM) build
 	@- $(RM) -r target

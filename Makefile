@@ -47,7 +47,7 @@ docker_image:
 docker_console: docker_image orig
 	docker run -ti --name $(DOCKER_CONTAINER) --rm -v $(shell pwd):/usr/src/app $(DOCKER_IMAGE) /bin/bash
 
-docker_package: docker_rm orig
+docker_package: docker_image docker_rm orig
 	docker run --name $(DOCKER_CONTAINER) --detach=true -v $(shell pwd):/usr/src/app $(DOCKER_IMAGE) sleep infinity
 	docker exec $(DOCKER_CONTAINER) /bin/bash ./build.sh
 	# Let caller be the owner (quick workaround)
