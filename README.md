@@ -5,55 +5,92 @@ realtime computation system.
 
 The goal of this project is to provide a flexible tool to build a debian package,
 that follows debian standards, uses default configs, supplied with storm release.
-Can be used as easy as storm zip unpacked elsewhere, and, at the same time,
+That, can be used as easy as storm zip unpacked elsewhere, and, at the same time,
 provides a flexibility to configure it for long-term high-load production use.
 
-Since storm provides several services (nimbus, supervisor, drpc, ...),
-this project provides separate packages for each service.
+Storm provides several services (nimbus, supervisor, drpc, ...).
+This project provides separate packages for each service.
 
 It also provides service management with init scripts, upstart, and runit.
 It is planned to move to use systemd.
 
-See `STORM_VERSION` file for supported storm version.
-See `sample-layout` for example of package content.
+See `./STORM_VERSION` file for supported storm version.
+
+See `./sample-layout/` for example of packages content.
+
+## Compatibility:
+
+* This packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
+* There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See also tags/branches and forks for different version of storm.
 
 ## Building a package
 
-### Step 1. Prepare repository and choose version of a package
+### Step 1. Prepare repository and check version of a package
 
 1. Clone the repository.
 2. Edit the `apache-storm/debian/changelog` to set packaging version/maintainer to your preferred values, so you get contacted if other people will use the package compiled by you.
-3. Make sure you have desired version specified in `./STORM_VERSION` file and in `debian/changelog`.
+3. Make sure you have desired version specified in `./STORM_VERSION` file and in `apache-storm/debian/changelog`.
 
-### Step 2. Build a package using docker
+### Step 2. Build a package
+#### Build a package using docker (recommended)
 
-I prefer to build the packages in docker container.
-For that `docker` and `make` should be installed.
+In case you don't have debian running locally, docker container can be used.
+For that `docker` and `make` should be installed in your system.
 
-Just run `make docker_package`, and the packages will be built.
+Run `make docker_package`, and the packages going to be built.
 
-### Build a package in native debian-based environment
+#### Build a package in native debian-based environment
 
-1. Install necessary dependencies (see Dockerfile or build.sh).
-2. Call `make orig`, this will download the sources.
-2. Run the `build.sh`. It will go to the nested `apache-storm` folder, that contains `debian` and execute the `dpkg-buildpackage -b -rfakeroot`. The sources will be downloaded as specified in `rules` file and package would be then created in `../`. In case you want to build SNAPSHOT version - follow the instructions in next paragraph.
-3. [Optional] After you have built a package, run the next command to display package layout. Pass-in your package version:
+1. Install necessary dependencies (see `Dockerfile` or `build.sh`).
+2. Call `make orig`, this will download and prepare the upstream tarball.
+In case you want to build `SNAPSHOT` or modified storm version - follow the instructions in next paragraph.
+2. Run the `build.sh`. It will go to the nested `apache-storm` folder, that contains `debian` and execute the command to build package. The packages will be created in project root folder.
+3. [Optional] After you have built a package and want to take a look at its content, run the next command to display package layout. Pass-in your package name and version:
 ```
-$ dpkg -c ./apache-storm_*_all.deb > SAMPLE_LAYOUT.txt
+$ dpkg -c ./storm_*_all.deb
 ```
-The sample layouts can be found in the [sample-layout](sample-layout) folder in repository.
+The sample layouts for default version can be found in the [sample-layout](sample-layout) folder in repository.
 
-### Creating a package of SNAPSHOT version of storm.
+### Build package in Vagrant
+
+The [vagrant-debian-wheezy-64](https://github.com/dotzero/vagrant-debian-wheezy-64)
+scripts were used to create a vagrant box, called `wheezy64`.
+This box is used as a base env to build package.
+
+Vagrant can be used to automatically provision the machine to build
+the script. Relies on `wheezy64`.
+
+```bash
+# prepare upstream tarball
+make orig
+
+# prepare and enter vm (debian)
+vagrant up debian
+vagrant ssh debian
+# to build in ubuntu use `vagrant up ubuntu && vagrant ssh ubuntu`
+
+cd /vagrant
+
+# then run
+./build.sh
+```
+
+Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
+
+#### Build a package for SNAPSHOT version of storm.
 
 Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob/master/DEVELOPER.md#packaging) to create a storm distribution.
 
     # First, build the code.
-    $ mvn clean install  # you may skip tests with `-DskipTests=true` to save time
+    # You may skip tests with `-DskipTests=true` to save time
+    $ mvn clean install
 
     # Create the binary distribution.
     $ cd storm-dist/binary && mvn package
 
-Then copy `storm-dist/binary/target/apache-storm-<version>.zip` to `downloads` and edit the `STORM_VERSION` and `debian/changelog` files to use this zip.
+Then manually copy `storm-dist/binary/target/apache-storm-<version>.zip` to `downloads` and edit the `STORM_VERSION` and `debian/changelog` files to use the version as in this zip.
+
+The proceed as with normal package, described above.
 
 ## Using a package:
 
@@ -65,25 +102,18 @@ you have to have next things installed:
 During the installation storm package also creates or enables existing storm user.
 
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
-2. Start required service with corresponding command
+2. Start desired storm service with corresponding command. For example:
 ```
 #: /etc/init.d/storm-nimbus start
 #: /etc/init.d/storm-ui start
 #: /etc/init.d/storm-supervisor start
 #: /etc/init.d/storm-drpc start
+#: /etc/init.d/storm-logviewer start
 ```
-3. Enable those that you need to start automatically on system restart. (TODO: insert one-liner)
+3. Enable those that you need to start automatically on system restart.
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
-It is a good idea to use Software Configuration Management tools to manage configuration of storm clusters.
-Like [saltstack](http://www.saltstack.com/),
-[chef](http://www.getchef.com/chef/),
-[puppet](https://puppetlabs.com/),
-[ansible](http://www.ansible.com/home).
 
-## Compatibity:
-
-* This version is intended to be used against and Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
-* There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See tags/branches and forks.
+At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
 
 ## Details:
 
@@ -165,29 +195,6 @@ because `${STORM_HOME}/logs/` are symlinked to `/var/log/storm` they end up wher
 
 #Dependencies and Requirements:
 
-### Vagrant (Optional)
-
-The [vagrant-debian-wheezy-64](https://github.com/dotzero/vagrant-debian-wheezy-64)
-scripts were used to create a vagrant box, called `wheezy64`.
-This box is used as a base env to build package.
-
-It is recommended to use vagrant to automatically provision the machine to build
-the script. (relies on `wheezy64`)
-
-```bash
-
-# prepare and enter vm (debian)
-vagrant up debian
-vagrant ssh debian
-# to build in ubuntu use `vagrant up ubuntu && vagrant ssh ubuntu`
-
-cd /vagrant
-
-# then run
-./build.sh
-```
-
-Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
 
 ### Compile time:
 
