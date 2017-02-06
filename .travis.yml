@@ -1,0 +1,6 @@
+sudo: required
+install: make
+services:
+  - docker
+script:
+  - make docker_package
