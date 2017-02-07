@@ -130,8 +130,7 @@ When crashed or killed, the services are going to be started again by systemd.
 # /etc/security/limits.conf
 # ...
 #<domain>      <type>  <item>         <value>
-# ...
-storm		hard	nofile		15000
+storm   hard	nofile		15000
 ```
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
