@@ -6,14 +6,15 @@ Debian packaging for [Apache Storm](http://storm.apache.org) distributed
 realtime computation system.
 
 The goal of this project is to provide a flexible tool to build a debian package,
-that follows debian standards, uses default configs, supplied with storm release.
-That, can be used as easy as storm zip unpacked elsewhere, and, at the same time,
-provides a flexibility to configure it for long-term high-load production use.
+that follows debian standards and uses default configs, supplied with storm release.
+Packaged storm can be used as easy as storm-zip unpacked elsewhere, and, at the same time,
+provides a flexibility to configure it for reliable and convenient long-term
+high-load production use.
 
 Storm provides several services (nimbus, supervisor, drpc, ...).
 This project provides separate packages for each service with corresponding systemd unit files.
 
-Previously this project provided init scripts, upstart conf and runit.
+Previously init scripts, upstart conf and runit files were provided.
 Now only systemd is supported. See History section below for details.
 
 See `./STORM_VERSION` file for supported storm version.
@@ -52,15 +53,16 @@ In case you want to build `SNAPSHOT` or modified storm version - follow the inst
 $ dpkg -c ./storm_*_all.deb
 ```
 The sample layouts for default version can be found in the [sample-layout](sample-layout) folder in repository.
+4. [Optional] Cleanup the file tree.
+```
+ch ./apache-storm
+dpkg-buildpackage -rfakeroot -Tclean
+```
 
 #### Build package in Vagrant
 
-The [vagrant-debian-wheezy-64](https://github.com/dotzero/vagrant-debian-wheezy-64)
-scripts were used to create a vagrant box, called `wheezy64`.
-This box is used as a base env to build package.
-
 Vagrant can be used to automatically provision the machine to build
-the script. Relies on `wheezy64`.
+the script.
 
 ```bash
 # prepare upstream tarball
@@ -74,10 +76,10 @@ vagrant ssh debian
 cd /vagrant
 
 # then run
-./build.sh
+sudo ./build.sh
 ```
 
-Probably the other debian-based distribution can be used as well, if you don't have wheezy box.
+Probably the other debian-based distribution can be used as well. See `./Vagrantfile`.
 
 #### Build a package for SNAPSHOT version of storm.
 
