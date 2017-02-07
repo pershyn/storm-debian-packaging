@@ -21,7 +21,7 @@ See `./STORM_VERSION` file for supported storm version.
 
 See `./sample-layout/` for example of packages content.
 
-If you just need a storm package, there are some in [Releases](https://github.com/pershyn/storm-debian-packaging/releases)
+If you just need a storm package, there are some in [Releases](https://github.com/pershyn/storm-debian-packaging/releases).
 
 ## Compatibility:
 
@@ -94,9 +94,7 @@ Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob
     # Create the binary distribution.
     $ cd storm-dist/binary && mvn package
 
-Then manually copy `storm-dist/binary/target/apache-storm-<version>.zip` to `downloads` and edit the `STORM_VERSION` and `debian/changelog` files to use the version as in this zip.
-
-The proceed as with normal package, described above.
+Then convert `storm-dist/binary/target/apache-storm-<version>.zip` to `*.tar.gz` and move it to `downloads`. Update the `STORM_VERSION` and `debian/changelog` files. Then proceed like with provided upstream tarball, as described above.
 
 ## Using a package:
 
