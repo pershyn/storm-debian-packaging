@@ -21,6 +21,8 @@ See `./STORM_VERSION` file for supported storm version.
 
 See `./sample-layout/` for example of packages content.
 
+If you just need a storm package, there are some in [Releases](https://github.com/pershyn/storm-debian-packaging/releases)
+
 ## Compatibility:
 
 * This packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
