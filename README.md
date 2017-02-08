@@ -107,31 +107,31 @@ During the installation storm package also creates or enables existing storm use
 
 1. After you install a package - edit the `/etc/storm/storm.yaml` to specify nimbus and zookeeper path.
 2. Start desired storm service with corresponding command. For example:
-```
-systemctl start storm-nimbus
-systemctl start storm-supervisor
-systemctl start storm-ui
-systemctl start storm-drpc
-systemctl start storm-logviewer
-```
-3. Enable those that you need to start automatically on system restart.
-```
-systemctl enable storm-nimbus
-...
-```
+    
+    ```
+    systemctl start storm-nimbus
+    systemctl start storm-supervisor
+    systemctl start storm-ui
+    systemctl start storm-drpc
+    systemctl start storm-logviewer
+    ```
+3. Enable those that you need to start automatically on system restart. For example, `storm-nimbus`:
+    
+    ```
+    systemctl enable storm-nimbus
+    ```
 NOTE: the autorestart is configured in `*.service` unit file.
 When crashed or killed, the services are going to be started again by systemd.
 (Earlier that was done with `runit`).
-
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
 5. Set limits in `/etc/security/limits.conf` (instead of using ulimit in /etc/default/storm - see http://man7.org/linux/man-pages/man5/limits.conf.5.html).
-
-```
-# /etc/security/limits.conf
-# ...
-#<domain>      <type>  <item>         <value>
-storm   hard	nofile		15000
-```
+    
+    ```
+    # /etc/security/limits.conf
+    # ...
+    #<domain>      <type>  <item>         <value>
+    storm   hard	nofile		15000
+    ```
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
 
