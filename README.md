@@ -122,7 +122,16 @@ systemctl enable storm-nimbus
 NOTE: the autorestart is configured in `*.service` unit file.
 When crashed or killed, the services are going to be started again by systemd.
 (Earlier that was done with `runit`).
+
 4. Configure storm the way you need using `/etc/storm/storm_env.ini`.
+5. Set limits in `/etc/security/limits.conf` (instead of using ulimit in /etc/default/storm - see http://man7.org/linux/man-pages/man5/limits.conf.5.html).
+
+```
+# /etc/security/limits.conf
+# ...
+#<domain>      <type>  <item>         <value>
+storm   hard	nofile		15000
+```
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
 
