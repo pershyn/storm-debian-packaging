@@ -238,14 +238,6 @@ Upstart was supported at some point, but now ubuntu supports systemd as well. Th
 
 [runit](http://smarden.org/runit/) was supported at some point, but now the autorestart is managed by systemd out of the box, and runit is not supported anymore.
 
-### Things to do:
---------------------
-
-- [ ] clean-up storm-local on package removal, so it doesn't collide with further installations
-- [ ] storm user home??? ($STORM.HOME is owned by root.)
-- [ ] check package installation behavior when home folder exists.
-- [ ] https://wiki.debian.org/MaintainerScripts
-
 ## License:
 
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as Apache Storm project.
