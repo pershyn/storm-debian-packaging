@@ -23,6 +23,18 @@ See `./sample-layout/` for example of packages content.
 
 If you just need a storm package, there are some in [Releases](https://github.com/pershyn/storm-debian-packaging/releases).
 
+## TOC
+
+* [Compatibility](#compatibility)
+* [Building a package](#building-a-package)
+* [Using a package](#using-a-package)
+* [Details](#details)
+  * [$STORM_HOME, storm user home, and storm.local.dir](#storm_home-storm-user-home-and-stormlocaldir)
+  * [Logging](#logging)
+* [Dependencies and Requirements](#dependencies-and-requirements)
+* [License](#license)
+* [Links](#links)
+
 ## Compatibility:
 
 * This packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
