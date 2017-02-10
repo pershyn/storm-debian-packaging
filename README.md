@@ -35,7 +35,7 @@ If you just need a storm package, there are some in [Releases](https://github.co
 * [License](#license)
 * [Links](#links)
 
-## Compatibility:
+## Compatibility
 
 * This packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution, because relies only on LSB. It has also upstart's conf files.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See also tags/branches and forks for different version of storm.
@@ -108,7 +108,7 @@ Follow instructions in [storm/DEVELOPER.md](https://github.com/apache/storm/blob
 
 Then convert `storm-dist/binary/target/apache-storm-<version>.zip` to `*.tar.gz` and move it to `downloads`. Update the `STORM_VERSION` and `debian/changelog` files. Then proceed like with provided upstream tarball, as described above.
 
-## Using a package:
+## Using a package
 
 According to [official storm guide](https://github.com/nathanmarz/storm/wiki/Setting-up-a-Storm-cluster)
 you have to have next things installed:
@@ -147,9 +147,9 @@ When crashed or killed, the services are going to be started again by systemd.
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters. Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
 
-## Details:
+## Details
 
-### $STORM_HOME, storm user home, and storm.local.dir.
+### $STORM_HOME, storm user home, and storm.local.dir
 
 Basically there are 2 folders (except configs, logs and init scripts):
 
@@ -225,10 +225,9 @@ This configuration is done in `logback.xml`.
 
 because `${STORM_HOME}/logs/` are symlinked to `/var/log/storm` they end up where expected by admins.
 
-#Dependencies and Requirements:
+# Dependencies and Requirements
 
-
-### Compile time:
+### Compile time
 
 Provisioning script `bootstrap.sh` installs all needed dependencies for Debian-based distribution to build a package.
 Same script is used to provision Vagrant environment.
@@ -250,11 +249,11 @@ Upstart was supported at some point, but now ubuntu supports systemd as well. Th
 
 [runit](http://smarden.org/runit/) was supported at some point, but now the autorestart is managed by systemd out of the box, and runit is not supported anymore.
 
-## License:
+## License
 
-[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as Apache Storm project.
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), same as for [Apache Storm](http://storm.apache.org) project.
 
-## Links:
+## Links
 
 You may be interested to keep in mind next projects.
 * [Storm framework for Mesos with Debian packaging](https://github.com/deric/storm-mesos)
