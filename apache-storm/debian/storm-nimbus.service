@@ -12,9 +12,14 @@
 
 [Unit]
 Description="Apache Storm Nimbus Service"
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/storm nimbus
 User=storm
 Restart=always
 PIDFile=/var/run/storm-nimbus.pid
+
+[Install]
+WantedBy=multi-user.target
+Alias=storm-nimbus
