@@ -12,6 +12,7 @@
 
 [Unit]
 Description="Apache Storm Supervisor Service"
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/storm supervisor
@@ -21,3 +22,7 @@ PIDFile=/var/run/storm-supervisor.pid
 # Might be necessary for limiting 
 # open files only for the storm-supervisor
 # LimitNOFILE=15000
+
+[Install]
+WantedBy=multi-user.target
+Alias=storm-supervisor
