@@ -12,9 +12,14 @@
 
 [Unit]
 Description="Apache Storm DRPC Service"
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/storm drpc
 User=storm
 Restart=always
 PIDFile=/var/run/storm-drpc.pid
+
+[Install]
+WantedBy=multi-user.target
+Alias=storm-drpc
