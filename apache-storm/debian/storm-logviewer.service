@@ -12,9 +12,14 @@
 
 [Unit]
 Description="Apache Storm Logviewer Service"
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/storm logviewer
 User=storm
 Restart=always
 PIDFile=/var/run/storm-logviewer.pid
+
+[Install]
+WantedBy=multi-user.target
+Alias=storm-logviewer

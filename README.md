@@ -171,15 +171,16 @@ The dilemma is how to organize a package, due to different perception by admins
 and storm developers:
 
 ```
-  |                   | ADMINS (Debian)       | DEVELOPERS
-  -------------------------------------------------------------
-  | Binary files      | /usr/bin/*            | $STORM_HOME/bin/*
-  | Librariers        | /usr/lib/storm        | $STORM_HOME/lib/*
-  | Configs           | /etc/storm/           | $STORM_HOME/conf/*
-  | Logback config    | /etc/storm/logback.xml| $STORM_HOME/logback/cluster.xml
-  | Logs              | /var/log/storm        | $STORM_HOME/logs/*
-  | Supervisors       | /etc/init.d/*         | N/A
-  | storm.local.dir   | /var/lib/storm/*      | ? (e.g. /mnt/storm, see Links)
+  |                      | ADMINS (Debian)                     | DEVELOPERS
+  ----------------------------------------------------------------------------------------------
+  | Binary files         | /usr/bin/*                          | $STORM_HOME/bin/*
+  | Librariers           | /usr/lib/storm                      | $STORM_HOME/lib/*
+  | Configs              | /etc/storm/                         | $STORM_HOME/conf/*
+  | Logback config       | /etc/storm/logback.xml              | $STORM_HOME/logback/cluster.xml
+  | Logs                 | /var/log/storm                      | $STORM_HOME/logs/*
+  | Supervisors          | /etc/init.d/*                       | N/A
+  | storm.local.dir      | /var/lib/storm/*                    | ? (e.g. /mnt/storm, see Links)
+  | Unit files (systemd) | /lib/systemd/system/storm-*.service | N/A  
 
 ```
 Also, there are 2 concepts - the software could be packaged or not-packaged.
