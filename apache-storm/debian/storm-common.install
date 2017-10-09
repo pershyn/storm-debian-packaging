@@ -12,9 +12,10 @@ orig/log4j2/* etc/storm/
 # init scripts are managed by rules
 
 # add docs
-orig/CHANGELOG.md usr/share/doc/storm/
-orig/LICENSE usr/share/doc/storm/
-orig/NOTICE usr/share/doc/storm/
-orig/README.markdown usr/share/doc/storm/
-orig/RELEASE usr/share/doc/storm/
-orig/SECURITY.md usr/share/doc/storm/
+# Commented docs for 1.0.4 because of sticky bit in dh_compress problem
+#orig/CHANGELOG.md usr/share/doc/storm/
+#orig/LICENSE usr/share/doc/storm/
+#orig/NOTICE usr/share/doc/storm/
+#orig/README.markdown usr/share/doc/storm/
+#orig/RELEASE usr/share/doc/storm/
+#orig/SECURITY.md usr/share/doc/storm/

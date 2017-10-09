@@ -37,7 +37,7 @@ If you just need a storm package, there are some in [Releases](https://github.co
 
 ## Compatibility
 
-* This packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution that supports systemd.
+* These packages are intended to be used against Debian Jessie. Presumably it can be ran on any other debian-based distribution that supports systemd.
 * There are previous versions (up to 0.9.1) built with FPM [here](https://github.com/pershyn/storm-deb-packaging). See also tags/branches and forks for different versions of storm.
 
 ## Building a package
