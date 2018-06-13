@@ -23,4 +23,5 @@ RUN apt-get update && apt-get install -y \
     unzip \
     dpkg-dev \
     fakeroot \
-    debhelper
+    debhelper \
+    dh-systemd

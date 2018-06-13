@@ -2,7 +2,7 @@ Source: apache-storm
 Section: net
 Priority: extra
 Maintainer: Michael Pershyn <michael.pershyn@gmail.com>
-Build-Depends: debhelper (>= 7.0.50~), java-runtime-headless, openjdk-7-jre-headless | sun-java7-jre, wget
+Build-Depends: debhelper (>= 7.0.50~), java-runtime-headless, openjdk-7-jre-headless | sun-java7-jre, wget, dh-systemd
 Standards-Version: 3.9.1
 
 Package: storm

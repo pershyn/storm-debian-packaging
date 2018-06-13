@@ -55,4 +55,4 @@ override_dh_auto_clean:
 	@- $(RM) -r target
 
 %:
-	dh $@
+	dh $@ --with systemd
