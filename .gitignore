@@ -20,4 +20,6 @@ apache-storm/debian/storm-nimbus/
 apache-storm/debian/storm-supervisor/
 apache-storm/debian/storm-ui/
 apache-storm/debian/storm/
+apache-storm/debian/debhelper-build-stamp
 apache-storm/orig
+sample-layout/*
