@@ -74,7 +74,7 @@ In case you want to build `SNAPSHOT` or modified storm version - follow the inst
 3. [Optional] After you have built a package and want to take a look at its content, run the next command to display package layout. Pass-in your package name and version:
 ```
 # example for storm-common
-dpkg -c ./storm_*_commom.deb
+dpkg -c ./storm-common_*.deb
 ```
 4. [Optional] Cleanup the file tree.
 ```
