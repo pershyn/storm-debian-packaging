@@ -7,14 +7,8 @@ orig/conf/* etc/storm/
 # skip the examples
 # skip external
 orig/lib usr/lib/storm/
+orig/extlib usr/lib/storm/
+orig/extlib-daemon usr/lib/storm/
 orig/log4j2/* etc/storm/
 
 # init scripts are managed by rules
-
-# add docs
-orig/CHANGELOG.md usr/share/doc/storm/
-orig/LICENSE usr/share/doc/storm/
-orig/NOTICE usr/share/doc/storm/
-orig/README.markdown usr/share/doc/storm/
-orig/RELEASE usr/share/doc/storm/
-orig/SECURITY.md usr/share/doc/storm/

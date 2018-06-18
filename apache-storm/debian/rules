@@ -29,6 +29,7 @@ ORIG_PATH=apache-storm-${STORM_VERSION}
 
 ${ORIG_PATH}: ${ORIG_FILE}
 	tar xf ${ORIG_FILE}
+	chmod -R -st ${ORIG_PATH}
 
 clean:
 	@- $(RM) orig \
@@ -55,4 +56,4 @@ override_dh_auto_clean:
 	@- $(RM) -r target
 
 %:
-	dh $@
+	dh $@ --with systemd
