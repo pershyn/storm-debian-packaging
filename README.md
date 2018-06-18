@@ -15,15 +15,15 @@ Storm provides several services (nimbus, supervisor, drpc, ...).
 This project provides separate packages for each service with corresponding systemd unit files.
 According to debian paradigm, the systemd services should be enabled and start right after the package installation.
 
-Packages for following service are provided:
+Packages for following services are provided:
 - `storm-drpc`
 - `storm-logviewer`
 - `storm-nimbus`
 - `storm-supervisor`
 - `storm-ui`
 
-Also there is `storm-common` package, that is used a dependency to those service-packages.
-There is also `storm` package that installs (and starts) all provided services.
+Also there is `storm-common` package, that is a dependency for the service-packages.
+There is also `storm` package that installs and starts all provided services, which may be useful on single-node setup.
 
 Previously init scripts, upstart conf and runit files were provided.
 Now only systemd is supported. See History section below for details.
@@ -70,17 +70,17 @@ Run `make docker_package`, and the packages going to be built.
 1. Install necessary dependencies (see `Dockerfile` or `build.sh`).
 2. Call `make orig`, this will download and prepare the upstream tarball.
 In case you want to build `SNAPSHOT` or modified storm version - follow the instructions in next paragraph.
-2. Run the `build.sh`. It will go to the nested `apache-storm` folder, that contains `debian` and execute the command to build package. The packages will be created in project root folder.
-3. [Optional] After you have built a package and want to take a look at its content, run the next command to display package layout. Pass-in your package name and version:
-```
-# example for storm-common
-dpkg -c ./storm-common_*.deb
-```
-4. [Optional] Cleanup the file tree.
-```
-ch ./apache-storm
-dpkg-buildpackage -rfakeroot -Tclean
-```
+3. Run the `build.sh`. It will go to the nested `apache-storm` folder, that contains `debian` and execute the command to build package. The packages will be created in project root folder.
+4. [Optional] After you have built a package and want to take a look at its content, run the next command to display package layout. Pass-in your package name and version:
+    ```
+    # example for storm-common
+    dpkg -c ./storm-common_*.deb
+    ```
+5. [Optional] Cleanup the file tree.
+    ```
+    ch ./apache-storm
+    dpkg-buildpackage -rfakeroot -Tclean
+    ```
 
 #### Build package in Vagrant
 
@@ -136,7 +136,7 @@ During the installation storm package also creates and/or enables existing storm
    When crashed or killed, the services are going to be started again by systemd!
    (Earlier that was done with `runit`).
 3. Configure storm the way you need using `/etc/storm/storm_env.ini`. Hint: use software configuraiton management tools.
-4. Set limits in [/etc/security/limits.conf](http://man7.org/linux/man-pages/man5/limits.conf.5.html) (previously was set in  `/etc/default/storm`).
+4. Set limits in [/etc/security/limits.conf](http://man7.org/linux/man-pages/man5/limits.conf.5.html). Earlier it was set in  `/etc/default/storm`.
     
     ```
     # /etc/security/limits.conf
@@ -146,10 +146,10 @@ During the installation storm package also creates and/or enables existing storm
     ```
 5. (On the first installation) remember to start the services after the configuration was done.
 
-```
+    ```
     systemdctl start storm-nimbus
     # and also other services
-```
+    ```
 
 At some point, it is a good idea to use software configuration management tools to manage configuration of storm clusters.
 Checkout [saltstack](http://www.saltstack.com/), [chef](http://www.getchef.com/chef/), [puppet](https://puppetlabs.com/), [ansible](http://www.ansible.com/home).
