@@ -132,9 +132,9 @@ During the installation storm package also creates and/or enables existing storm
     systemctl status storm-nimbus
     systemctl stop storm-nimbus
     ```
-NOTE: the autorestart is configured in `*.service` unit file.
-When crashed or killed, the services are going to be started again by systemd!
-(Earlier that was done with `runit`).
+   NOTE: the autorestart is configured in `*.service` unit file.
+   When crashed or killed, the services are going to be started again by systemd!
+   (Earlier that was done with `runit`).
 3. Configure storm the way you need using `/etc/storm/storm_env.ini`. Hint: use software configuraiton management tools.
 4. Set limits in [/etc/security/limits.conf](http://man7.org/linux/man-pages/man5/limits.conf.5.html) (previously was set in  `/etc/default/storm`).
     
